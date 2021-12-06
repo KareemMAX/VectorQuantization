@@ -61,6 +61,17 @@ public class Matrix {
         return vectors;
     }
 
+    public boolean equals(Matrix m){
+        if (m.width != width) return false;
+        if (m.height != height) return false;
+        for (int i = 0; i < m.width; i++){
+            for (int j = 0; j < m.height; j++){
+                if (m.getPixel(i, j) != getPixel(i, j)) return false;
+            }
+        }
+        return true;
+    }
+
     public static Matrix getAverage(List<Matrix> matrices) {
         Matrix result = new Matrix(matrices.get(0).width, matrices.get(0).height);
 
@@ -78,6 +89,45 @@ public class Matrix {
                 result.setPixel(x, y, result.getPixel(x, y) / matrices.size());
             }
         }
+
+        return result;
+    }
+
+    public static List<List<Matrix>> splitLBG(int height, List<Matrix> matrices){
+        ArrayList < List <Matrix>> result = new ArrayList<>();
+
+        if (height == 0){
+            result.add(matrices);
+            return result;
+        }
+
+
+        ArrayList <Matrix> larger = new ArrayList<>();
+        ArrayList <Matrix> smaller = new ArrayList<>();
+
+        Matrix avgFirst = Matrix.getAverage(matrices);
+        Matrix avgSecond = Matrix.getAverage(matrices);
+
+        for (int i = 0; i < avgSecond.width; i++){
+            for (int j = 0; j < avgSecond.height; j++){
+                avgSecond.setPixel(i, j, avgSecond.getPixel(i, j) + 1);
+            }
+        }
+
+        for (Matrix matrix :
+                matrices) {
+            if (matrix.getDistance(avgFirst) > matrix.getDistance(avgSecond)){
+                larger.add(matrix);
+            }
+            else {
+                smaller.add(matrix);
+            }
+        }
+
+
+        result.addAll(splitLBG(height - 1, smaller));
+        result.addAll(splitLBG(height - 1, larger));
+
 
         return result;
     }
