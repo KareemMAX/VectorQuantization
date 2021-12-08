@@ -1,3 +1,8 @@
+/**
+ * Kareem Mohamed Morsy, ID: 20190386, S1, Computer Science
+ * Mohamed Ashraf Mohamed, ID : 20190424, S2, Computer Science
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +34,10 @@ public class Matrix {
 
     public int getHeight() {
         return height;
+    }
+
+    public int[][] getVector() {
+        return vector;
     }
 
     public int getDistance(Matrix m) {
@@ -72,8 +81,10 @@ public class Matrix {
         return true;
     }
 
-    public static Matrix getAverage(List<Matrix> matrices) {
-        Matrix result = new Matrix(matrices.get(0).width, matrices.get(0).height);
+    public static Matrix getAverage(List<Matrix> matrices, int width, int height) {
+        Matrix result = new Matrix(width, height);
+
+        if (matrices.size() == 0) return result;
 
         for (Matrix m :
                 matrices) {
@@ -93,7 +104,7 @@ public class Matrix {
         return result;
     }
 
-    public static List<List<Matrix>> splitLBG(int height, List<Matrix> matrices){
+    public static List<List<Matrix>> splitLBG(int height, List<Matrix> matrices, int vectorSize){
         ArrayList < List <Matrix>> result = new ArrayList<>();
 
         if (height == 0){
@@ -105,8 +116,8 @@ public class Matrix {
         ArrayList <Matrix> larger = new ArrayList<>();
         ArrayList <Matrix> smaller = new ArrayList<>();
 
-        Matrix avgFirst = Matrix.getAverage(matrices);
-        Matrix avgSecond = Matrix.getAverage(matrices);
+        Matrix avgFirst = Matrix.getAverage(matrices, vectorSize, vectorSize);
+        Matrix avgSecond = Matrix.getAverage(matrices, vectorSize, vectorSize);
 
         for (int i = 0; i < avgSecond.width; i++){
             for (int j = 0; j < avgSecond.height; j++){
@@ -125,8 +136,8 @@ public class Matrix {
         }
 
 
-        result.addAll(splitLBG(height - 1, smaller));
-        result.addAll(splitLBG(height - 1, larger));
+        result.addAll(splitLBG(height - 1, smaller, vectorSize));
+        result.addAll(splitLBG(height - 1, larger, vectorSize));
 
 
         return result;
