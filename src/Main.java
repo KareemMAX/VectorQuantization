@@ -128,14 +128,13 @@ public class Main {
                         (int)(codeBookBits * (width / vectorSize) * (height / vectorSize))
         );
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                BitSet codeBookIdxBitSet = imageBinary.get((int)(x * width + y) * codeBookBits, (int)(x * width + y + 1) * codeBookBits);
+        for (int x = 0; x < width / vectorSize; x++) {
+            for (int y = 0; y < height / vectorSize; y++) {
+                BitSet codeBookIdxBitSet = imageBinary.get((int)(x * width / vectorSize + y) * codeBookBits, (int)(x * width / vectorSize + y + 1) * codeBookBits);
 
                 int codeBookIdx = 0;
-                System.out.println(codeBookIdx);
                 for (int i = 0; i < codeBookBits; i++) {
-                    codeBookIdx |= codeBookIdxBitSet.get(i + (int)(width * x + y)) ? 1 << i : 0;
+                    codeBookIdx |= codeBookIdxBitSet.get(i) ? 1 << i : 0;
                 }
 
                 for (int i = 0; i < vectorSize; i++) {
@@ -243,8 +242,6 @@ public class Main {
                     averageIndex = i;
                 }
             }
-
-            System.out.println(averageIndex);
 
             for (int i = 0; i < codeBookBits; i++) {
                 compressedBits.add(((averageIndex >> i) & 1) == 1);
