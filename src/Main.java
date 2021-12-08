@@ -53,7 +53,7 @@ public class Main {
                     int[] flatArray = new int[imgArr.length * imgArr[0].length];
                     for (int y = 0; y < imgArr[0].length; y++) {
                         for (int x = 0; x < imgArr.length; x++) {
-                            flatArray[(y * imgArr[0].length) + x] = imgArr[x][y];
+                            flatArray[(y * imgArr.length) + x] = imgArr[x][y];
                         }
                     }
 
@@ -130,7 +130,7 @@ public class Main {
 
         for (int x = 0; x < width / vectorSize; x++) {
             for (int y = 0; y < height / vectorSize; y++) {
-                BitSet codeBookIdxBitSet = imageBinary.get((int)(x * width / vectorSize + y) * codeBookBits, (int)(x * width / vectorSize + y + 1) * codeBookBits);
+                BitSet codeBookIdxBitSet = imageBinary.get((int)((x * height) / vectorSize + y) * codeBookBits, (int)((x * height) / vectorSize + y + 1) * codeBookBits);
 
                 int codeBookIdx = 0;
                 for (int i = 0; i < codeBookBits; i++) {
