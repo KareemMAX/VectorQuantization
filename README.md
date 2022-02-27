@@ -1,5 +1,5 @@
 # VectorQuantization
-Vector quantization compression and decompression program for gray-scale images. 
+[LBG](https://en.wikipedia.org/wiki/Linde%E2%80%93Buzo%E2%80%93Gray_algorithm) (Linde–Buzo–Gray) [Vector quantization](https://en.wikipedia.org/wiki/Vector_quantization#Use_in_data_compression) compression and decompression implementation for gray-scale images. 
 It was an assignment for the Compression and Information theory course in Cairo University Faculty of Computers and Artificial Intelligence.
 
 ## How to use:
